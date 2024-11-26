@@ -23,7 +23,7 @@ class Flow {
     }
 
     func start(with data: [String: Any?]? = nil) {
-        dataManager.mergeWithInitialData(data)
+        dataManager.collectData(data)
         proceedToNextScreen()
     }
 
