@@ -24,30 +24,39 @@ public class Flow {
 
     public func start(with data: [String: Any?]? = nil) {
         dataManager.collectData(data)
-        proceedToNextScreen()
+        showCurrentScreen()
     }
 
-    private func proceedToNextScreen() {
+    private func showCurrentScreen() {
         coordinator.showNextScreen(screenName: currentScreen, data: dataManager.collectedData) { [weak self] formData, nextScreen in
-            self?.didCompleteForm(formData: formData, preferredNextScreen: nextScreen)
+            self?.handleScreenCompletion(formData: formData, preferredNextScreen: nextScreen)
         }
     }
 
-    private func didCompleteForm(formData: [String: Any?], preferredNextScreen: String? = nil) {
+    private func handleScreenCompletion(formData: [String: Any?], preferredNextScreen: String?) {
         dataManager.collectData(formData)
+        moveToNextScreen(preferredNextScreen: preferredNextScreen)
+    }
 
-        if let nextScreens = graph.getNextScreens(from: currentScreen) {
-            if let preferredNextScreen, nextScreens.contains(preferredNextScreen) {
-                currentScreen = preferredNextScreen
-                proceedToNextScreen()
-            } else if let nextScreen = nextScreens.first {
-                currentScreen = nextScreen
-                proceedToNextScreen()
-            } else {
-                didFinishFlow?(dataManager.collectedData)
-            }
-        } else {
-            didFinishFlow?(dataManager.collectedData)
+    private func moveToNextScreen(preferredNextScreen: String?) {
+        guard let nextScreens = graph.getNextScreens(from: currentScreen) else {
+            finishFlow()
+            return
         }
+
+        if let preferredNextScreen, nextScreens.contains(preferredNextScreen) {
+            currentScreen = preferredNextScreen
+        } else if let defaultNextScreen = nextScreens.first {
+            currentScreen = defaultNextScreen
+        } else {
+            finishFlow()
+            return
+        }
+
+        showCurrentScreen()
+    }
+
+    private func finishFlow() {
+        didFinishFlow?(dataManager.collectedData)
     }
 }
