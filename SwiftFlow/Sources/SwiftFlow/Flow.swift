@@ -4,7 +4,7 @@
 
 import Foundation
 
-class Flow {
+public class Flow {
     private let identifier: String
     private let coordinator: FlowCoordinator
     private let dataManager: FlowDataManager
@@ -14,7 +14,7 @@ class Flow {
     public var didFinishFlow: (([String: Any]) -> Void)?
     public var exitFromFlow: (() -> Void)?
 
-    init(identifier: String, initialScreen: String, graph: Graph, coordinator: FlowCoordinator, dataManager: FlowDataManager) {
+    public init(identifier: String, initialScreen: String, graph: Graph, coordinator: FlowCoordinator, dataManager: FlowDataManager) {
         self.identifier = identifier
         currentScreen = initialScreen
         self.graph = graph
@@ -22,7 +22,7 @@ class Flow {
         self.dataManager = dataManager
     }
 
-    func start(with data: [String: Any?]? = nil) {
+    public func start(with data: [String: Any?]? = nil) {
         dataManager.collectData(data)
         proceedToNextScreen()
     }

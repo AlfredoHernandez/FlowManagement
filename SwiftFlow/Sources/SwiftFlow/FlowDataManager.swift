@@ -4,7 +4,7 @@
 
 import Foundation
 
-protocol FlowDataManager {
+public protocol FlowDataManager {
     var collectedData: [String: Any] { get }
 
     func collectData(_ data: [String: Any?]?)

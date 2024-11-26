@@ -2,6 +2,7 @@
 //  Copyright © 2024 Jesús Alfredo Hernández Alarcón. All rights reserved.
 //
 
+import SwiftFlow
 import SwiftUI
 
 public class SwiftUIFlowCoordinator: ObservableObject, FlowCoordinator {

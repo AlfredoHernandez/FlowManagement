@@ -6,7 +6,12 @@
 	objectVersion = 77;
 	objects = {
 
+/* Begin PBXBuildFile section */
+		38ED189A2CF6325700835060 /* SwiftFlow in Frameworks */ = {isa = PBXBuildFile; productRef = 38ED18992CF6325700835060 /* SwiftFlow */; };
+/* End PBXBuildFile section */
+
 /* Begin PBXFileReference section */
+		38ED18972CF6320E00835060 /* SwiftFlow */ = {isa = PBXFileReference; lastKnownFileType = wrapper; path = SwiftFlow; sourceTree = "<group>"; };
 		38FA22742CA4E83000E8456F /* FlowExample.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = FlowExample.app; sourceTree = BUILT_PRODUCTS_DIR; };
 /* End PBXFileReference section */
 
@@ -23,16 +28,26 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				38ED189A2CF6325700835060 /* SwiftFlow in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		38ED18982CF6325700835060 /* Frameworks */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			name = Frameworks;
+			sourceTree = "<group>";
+		};
 		38FA226B2CA4E83000E8456F = {
 			isa = PBXGroup;
 			children = (
+				38ED18972CF6320E00835060 /* SwiftFlow */,
 				38FA22762CA4E83000E8456F /* FlowExample */,
+				38ED18982CF6325700835060 /* Frameworks */,
 				38FA22752CA4E83000E8456F /* Products */,
 			);
 			sourceTree = "<group>";
@@ -65,6 +80,7 @@
 			);
 			name = FlowExample;
 			packageProductDependencies = (
+				38ED18992CF6325700835060 /* SwiftFlow */,
 			);
 			productName = FlowExample;
 			productReference = 38FA22742CA4E83000E8456F /* FlowExample.app */;
@@ -324,6 +340,13 @@
 			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
+
+/* Begin XCSwiftPackageProductDependency section */
+		38ED18992CF6325700835060 /* SwiftFlow */ = {
+			isa = XCSwiftPackageProductDependency;
+			productName = SwiftFlow;
+		};
+/* End XCSwiftPackageProductDependency section */
 	};
 	rootObject = 38FA226C2CA4E83000E8456F /* Project object */;
 }

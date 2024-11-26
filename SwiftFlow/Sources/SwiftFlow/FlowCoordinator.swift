@@ -4,6 +4,6 @@
 
 import Foundation
 
-protocol FlowCoordinator {
+public protocol FlowCoordinator {
     func showNextScreen(screenName: String, data: [String: Any], didCompleteForm: @escaping ([String: Any?]) -> Void)
 }

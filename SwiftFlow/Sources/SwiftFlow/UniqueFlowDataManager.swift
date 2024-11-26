@@ -6,7 +6,7 @@ import Foundation
 
 public class UniqueFlowDataManager: FlowDataManager {
     private var uniqueCollectedData = Set<String>()
-    private(set) var collectedData = [String: Any]()
+    public private(set) var collectedData = [String: Any]()
 
     public func collectData(_ data: [String: Any?]?) {
         guard let data else { return }

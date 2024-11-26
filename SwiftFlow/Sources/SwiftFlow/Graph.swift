@@ -7,7 +7,7 @@ import Foundation
 public class Graph {
     private var adjList: [String: [String]] = [:]
 
-    init(adjList: [String: [String]] = [:]) {
+    public init(adjList: [String: [String]] = [:]) {
         self.adjList = adjList
     }
 
