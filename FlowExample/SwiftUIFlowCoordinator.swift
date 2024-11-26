@@ -9,12 +9,12 @@ public class SwiftUIFlowCoordinator: ObservableObject, FlowCoordinator {
     @Published var screenStack: [String] = []
 
     private var data: [String: Any] = [:]
-    private var didCompleteForm: (([String: Any?]) -> Void)?
+    private var didCompleteForm: FormCompletion?
 
     public func showNextScreen(
         screenName: String,
         data: [String: Any],
-        didCompleteForm: @escaping ([String: Any?]) -> Void
+        didCompleteForm: @escaping FormCompletion
     ) {
         self.data = data
         self.didCompleteForm = didCompleteForm
@@ -25,14 +25,18 @@ public class SwiftUIFlowCoordinator: ObservableObject, FlowCoordinator {
 
     @ViewBuilder
     public func view(for screenName: String) -> some View {
-        switch screenName {
-        case "ScreenA":
-            ScreenAView(data: data, didCompleteForm: didCompleteForm ?? { _ in })
-        case "ScreenB":
-            ScreenBView(data: data, didCompleteForm: didCompleteForm ?? { _ in })
-        case "ScreenC":
-            ScreenCView(data: data, didCompleteForm: didCompleteForm ?? { _ in })
-        default:
+        if let didCompleteForm {
+            switch screenName {
+            case "ScreenA":
+                ScreenAView(data: data, didCompleteForm: didCompleteForm)
+            case "ScreenB":
+                ScreenBView(data: data, didCompleteForm: didCompleteForm)
+            case "ScreenC":
+                ScreenCView(data: data, didCompleteForm: didCompleteForm)
+            default:
+                EmptyView()
+            }
+        } else {
             EmptyView()
         }
     }

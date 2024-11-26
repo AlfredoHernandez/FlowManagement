@@ -22,7 +22,7 @@ struct FlowExampleApp: App {
 
 func createGraph() -> Graph {
     Graph(adjList: [
-        "ScreenA": ["ScreenB"],
+        "ScreenA": ["ScreenB", "ScreenC"],
         "ScreenB": ["ScreenC"],
         "ScreenC": [],
     ])

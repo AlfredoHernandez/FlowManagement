@@ -28,16 +28,24 @@ public class Flow {
     }
 
     private func proceedToNextScreen() {
-        coordinator.showNextScreen(screenName: currentScreen, data: dataManager.collectedData) { [weak self] formData in
-            self?.didCompleteForm(formData: formData)
+        coordinator.showNextScreen(screenName: currentScreen, data: dataManager.collectedData) { [weak self] formData, nextScreen in
+            self?.didCompleteForm(formData: formData, preferredNextScreen: nextScreen)
         }
     }
 
-    private func didCompleteForm(formData: [String: Any?]) {
+    private func didCompleteForm(formData: [String: Any?], preferredNextScreen: String? = nil) {
         dataManager.collectData(formData)
-        if let nextScreens = graph.getNextScreens(from: currentScreen), let nextScreen = nextScreens.first {
-            currentScreen = nextScreen
-            proceedToNextScreen()
+
+        if let nextScreens = graph.getNextScreens(from: currentScreen) {
+            if let preferredNextScreen, nextScreens.contains(preferredNextScreen) {
+                currentScreen = preferredNextScreen
+                proceedToNextScreen()
+            } else if let nextScreen = nextScreens.first {
+                currentScreen = nextScreen
+                proceedToNextScreen()
+            } else {
+                didFinishFlow?(dataManager.collectedData)
+            }
         } else {
             didFinishFlow?(dataManager.collectedData)
         }

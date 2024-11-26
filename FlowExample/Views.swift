@@ -2,17 +2,23 @@
 //  Copyright © 2024 Jesús Alfredo Hernández Alarcón. All rights reserved.
 //
 
+import SwiftFlow
 import SwiftUI
 
 struct ScreenAView: View {
     let data: [String: Any]
-    let didCompleteForm: ([String: Any?]) -> Void
+    let didCompleteForm: FormCompletion
 
     var body: some View {
         VStack {
             Text("Screen A")
-            Button("Next") {
-                didCompleteForm(["userType": "newUser"])
+
+            Button("Next B") {
+                didCompleteForm(["userType": "newUserB"], "ScreenB")
+            }
+
+            Button("Next C") {
+                didCompleteForm(["userType": "newUserC"], "ScreenC")
             }
         }
         .padding()
@@ -21,13 +27,13 @@ struct ScreenAView: View {
 
 struct ScreenBView: View {
     let data: [String: Any]
-    let didCompleteForm: ([String: Any?]) -> Void
+    let didCompleteForm: FormCompletion
 
     var body: some View {
         VStack {
             Text("Screen B")
             Button("Next") {
-                didCompleteForm(["age": 30])
+                didCompleteForm(["age": 30], nil)
             }
         }
         .padding()
@@ -36,13 +42,13 @@ struct ScreenBView: View {
 
 struct ScreenCView: View {
     let data: [String: Any]
-    let didCompleteForm: ([String: Any?]) -> Void
+    let didCompleteForm: FormCompletion
 
     var body: some View {
         VStack {
             Text("Screen C")
             Button("Finish") {
-                didCompleteForm(["finished": true])
+                didCompleteForm(["finished": true], nil)
             }
         }
         .padding()
