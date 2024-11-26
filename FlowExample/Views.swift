@@ -11,13 +11,17 @@ struct ScreenAView: View {
 
     var body: some View {
         VStack {
-            Text("Screen A")
+            VStack {
+                Text("Screen A")
+                Text("Current data: ")
+                Text(String(describing: data))
+            }
 
-            Button("Next B") {
+            Button("Continue with screen B") {
                 didCompleteForm(["userType": "newUserB"], "ScreenB")
             }
 
-            Button("Next C") {
+            Button("Continue with screen C") {
                 didCompleteForm(["userType": "newUserC"], "ScreenC")
             }
         }
@@ -31,7 +35,12 @@ struct ScreenBView: View {
 
     var body: some View {
         VStack {
-            Text("Screen B")
+            VStack {
+                Text("Screen B")
+                Text("Current data: ")
+                Text(String(describing: data))
+            }
+
             Button("Next") {
                 didCompleteForm(["age": 30], nil)
             }
@@ -46,7 +55,12 @@ struct ScreenCView: View {
 
     var body: some View {
         VStack {
-            Text("Screen C")
+            VStack {
+                Text("Screen C")
+                Text("Current data: ")
+                Text(String(describing: data))
+            }
+
             Button("Finish") {
                 didCompleteForm(["finished": true], nil)
             }

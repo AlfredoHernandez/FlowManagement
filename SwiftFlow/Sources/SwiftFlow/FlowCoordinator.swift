@@ -8,4 +8,6 @@ public typealias FormCompletion = ([String: Any?], String?) -> Void
 
 public protocol FlowCoordinator {
     func showNextScreen(screenName: String, data: [String: Any], didCompleteForm: @escaping FormCompletion)
+
+    func goToRootScreen()
 }

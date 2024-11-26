@@ -6,25 +6,27 @@ import SwiftFlow
 import SwiftUI
 
 struct FlowContainerView: View {
-    @ObservedObject var coordinator: SwiftUIFlowCoordinator
+    private let initialData = ["name": "Alfredo"]
 
+    @ObservedObject var coordinator: SwiftUIFlowCoordinator
     var onStartFlow: (([String: Any]?) -> Void)?
 
     var body: some View {
         NavigationStack(path: $coordinator.screenStack) {
-            VStack {
+            VStack(spacing: 24) {
+                VStack {
+                    Text("Initial data:")
+                    Text(String(describing: initialData))
+                }
+
                 Button(action: {
-                    onStartFlow?(["name": "Alfredo"])
+                    onStartFlow?(initialData)
                 }, label: {
-                    Text("Init Flow")
+                    Text("Start flow")
                 })
             }
             .navigationDestination(for: String.self) { screenName in
                 coordinator.view(for: screenName)
-            }.onChange(of: coordinator.screenStack) { oldValue, newValue in
-                print("OLD: \(oldValue)")
-                print("New: \(newValue)")
-                // TODO: Hanlde flow.goBack()
             }
         }
     }

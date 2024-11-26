@@ -35,8 +35,8 @@ func createFlow(coordinator: FlowCoordinator, dataManager: FlowDataManager = Def
         coordinator: coordinator,
         dataManager: dataManager
     )
-    flow.didFinishFlow = { data in
-        print("Flow finished with \(data)")
+    flow.didFinishFlow = { _ in
+        coordinator.goToRootScreen()
     }
     return flow
 }

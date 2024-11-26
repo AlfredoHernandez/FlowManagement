@@ -21,6 +21,10 @@ public class SwiftUIFlowCoordinator: ObservableObject, FlowCoordinator {
         screenStack.append(screenName)
     }
 
+    public func goToRootScreen() {
+        screenStack.removeAll()
+    }
+
     // MARK: - Adapter for @ViewBuilder
 
     @ViewBuilder
