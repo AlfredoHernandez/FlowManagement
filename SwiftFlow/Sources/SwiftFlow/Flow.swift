@@ -9,25 +9,27 @@ public class Flow {
     private let coordinator: FlowCoordinator
     private let dataManager: FlowDataManager
     private let graph: Graph
-    private var currentScreen: String
+    private var currentScreen: String?
 
     public var didFinishFlow: (([String: Any]) -> Void)?
     public var exitFromFlow: (() -> Void)?
 
-    public init(identifier: String, initialScreen: String, graph: Graph, coordinator: FlowCoordinator, dataManager: FlowDataManager) {
+    public init(identifier: String, graph: Graph, coordinator: FlowCoordinator, dataManager: FlowDataManager) {
         self.identifier = identifier
-        currentScreen = initialScreen
         self.graph = graph
         self.coordinator = coordinator
         self.dataManager = dataManager
     }
 
-    public func start(with data: [String: Any?]? = nil) {
+    public func start(from initialScreen: String, with data: [String: Any?]? = nil) {
+        currentScreen = initialScreen
         dataManager.collectData(data)
         showCurrentScreen()
     }
 
     private func showCurrentScreen() {
+        guard let currentScreen else { return }
+
         coordinator.showNextScreen(screenName: currentScreen, data: dataManager.collectedData) { [weak self] formData, nextScreen in
             self?.handleScreenCompletion(formData: formData, preferredNextScreen: nextScreen)
         }
@@ -39,15 +41,17 @@ public class Flow {
     }
 
     private func moveToNextScreen(preferredNextScreen: String?) {
-        guard let nextScreens = graph.getNextScreens(from: currentScreen) else {
+        guard let currentScreen,
+              let nextScreens = graph.getNextScreens(from: currentScreen)
+        else {
             finishFlow()
             return
         }
 
         if let preferredNextScreen, nextScreens.contains(preferredNextScreen) {
-            currentScreen = preferredNextScreen
+            self.currentScreen = preferredNextScreen
         } else if let defaultNextScreen = nextScreens.first {
-            currentScreen = defaultNextScreen
+            self.currentScreen = defaultNextScreen
         } else {
             finishFlow()
             return

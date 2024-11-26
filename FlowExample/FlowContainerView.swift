@@ -42,6 +42,6 @@ struct FlowContainerView: View {
 
     FlowContainerView(coordinator: SwiftUIFlowCoordinator())
         .onStartFlow { data in
-            flow.start(with: data)
+            flow.start(from: "ScreenA", with: data)
         }
 }

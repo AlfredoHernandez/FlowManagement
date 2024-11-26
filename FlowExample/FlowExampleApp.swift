@@ -14,7 +14,7 @@ struct FlowExampleApp: App {
             let flow = createFlow(coordinator: coordinator)
             FlowContainerView(coordinator: coordinator)
                 .onStartFlow { initialData in
-                    flow.start(with: initialData)
+                    flow.start(from: "ScreenA", with: initialData)
                 }
         }
     }
@@ -31,7 +31,6 @@ func createGraph() -> Graph {
 func createFlow(coordinator: FlowCoordinator, dataManager: FlowDataManager = DefaultFlowDataManager()) -> Flow {
     let flow = Flow(
         identifier: "UserOnboarding",
-        initialScreen: "ScreenA",
         graph: createGraph(),
         coordinator: coordinator,
         dataManager: dataManager
